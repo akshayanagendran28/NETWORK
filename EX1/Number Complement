@@ -1,0 +1,22 @@
+#include <iostream>
+
+class Solution {
+public:
+    int findComplement(int num) {
+        long result = 0;   
+        long position = 1;   
+
+        // Process the number bit by bit using basic mat
+        while (num > 0) {
+            int current_bit = num % 2;      
+            int flipped_bit = (current_bit == 1) ? 0 : 1; // Flip the bit
+
+            result += flipped_bit * position; // Add the flipped bit to the result
+            
+            position *= 2;   // Move to the next binary place value
+            num /= 2;        // Move to the next bit of the original number
+        }
+
+        return (int)result;
+    }
+};
