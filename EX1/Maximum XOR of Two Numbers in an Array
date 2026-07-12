@@ -1,0 +1,78 @@
+#include <stdlib.h>
+
+typedef struct Trie
+{
+    struct Trie *child[2];
+} Trie;
+
+Trie* createNode()
+{
+    Trie *node = (Trie*)malloc(sizeof(Trie));
+    node->child[0] = NULL;
+    node->child[1] = NULL;
+    return node;
+}
+
+void insert(Trie *root, int num)
+{
+    Trie *curr = root;
+
+    for(int i = 31; i >= 0; i--)
+    {
+        int bit = (num >> i) & 1;
+
+        if(curr->child[bit] == NULL)
+        {
+            curr->child[bit] = createNode();
+        }
+
+        curr = curr->child[bit];
+    }
+}
+
+int findMax(Trie *root, int num)
+{
+    Trie *curr = root;
+    int ans = 0;
+
+    for(int i = 31; i >= 0; i--)
+    {
+        int bit = (num >> i) & 1;
+
+        if(curr->child[1 - bit] != NULL)
+        {
+            ans |= (1 << i);
+            curr = curr->child[1 - bit];
+        }
+        else
+        {
+            curr = curr->child[bit];
+        }
+    }
+
+    return ans;
+}
+
+int findMaximumXOR(int* nums, int numsSize)
+{
+    Trie *root = createNode();
+
+    for(int i = 0; i < numsSize; i++)
+    {
+        insert(root, nums[i]);
+    }
+
+    int max = 0;
+
+    for(int i = 0; i < numsSize; i++)
+    {
+        int value = findMax(root, nums[i]);
+
+        if(value > max)
+        {
+            max = value;
+        }
+    }
+
+    return max;
+}
