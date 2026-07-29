@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int bitwiseAnd(int N, int K) {
+    // If (K - 1) OR K is less than or equal to N, then a pair exists 
+    // such that their bitwise AND equals K - 1.
+    // Otherwise, the maximum possible value strictly less than K is K - 2.
+    if (((K - 1) | K) <= N) {
+        return K - 1;
+    } else {
+        return K - 2;
+    }
+}
+
+int main() {
+    int t;
+    if (scanf("%d", &t) != 1) return 0;
+    
+    while (t--) {
+        int n, k;
+        if (scanf("%d %d", &n, &k) == 2) {
+            printf("%d\n", bitwiseAnd(n, k));
+        }
+    }
+    
+    return 0;
+}
