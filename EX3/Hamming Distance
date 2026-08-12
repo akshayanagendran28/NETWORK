@@ -1,0 +1,6 @@
+class Solution {
+    public int hammingDistance(int x, int y) {
+        // Built-in function to count set bits
+        return Integer.bitCount(x ^ y);
+    }
+}
