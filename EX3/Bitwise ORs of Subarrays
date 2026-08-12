@@ -1,0 +1,94 @@
+#include <stdlib.h>
+
+// A high-performance hash set structure to handle up to 5*10^4 unique elements
+#define HASH_SIZE 100003
+
+typedef struct Node {
+    int value;
+    struct Node* next;
+} Node;
+
+typedef struct {
+    Node* buckets[HASH_SIZE];
+    int count;
+} HashSet;
+
+void hash_insert(HashSet* set, int val) {
+    // Handle negative values safely if they exist, though values here are >= 0
+    unsigned int hash_index = ((unsigned int)val) % HASH_SIZE;
+    Node* curr = set->buckets[hash_index];
+    
+    // Check if the value already exists in the bucket
+    while (curr != NULL) {
+        if (curr->value == val) return;
+        curr = curr->next;
+    }
+    
+    // Insert new node at the head of the bucket list
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    new_node->value = val;
+    new_node->next = set->buckets[hash_index];
+    set->buckets[hash_index] = new_node;
+    set->count++;
+}
+
+void hash_free(HashSet* set) {
+    for (int i = 0; i < HASH_SIZE; i++) {
+        Node* curr = set->buckets[i];
+        while (curr != NULL) {
+            Node* temp = curr;
+            curr = curr->next;
+            free(temp);
+        }
+    }
+}
+
+int subarrayBitwiseORs(int* arr, int arrSize) {
+    if (arrSize == 0) return 0;
+
+    HashSet total_set = { {NULL}, 0 };
+    
+  
+    int prev_or[33];
+    int prev_size = 0;
+    
+    int curr_or[33];
+    int curr_size = 0;
+    
+    for (int i = 0; i < arrSize; i++) {
+        curr_size = 0;
+        
+       
+        curr_or[curr_size++] = arr[i];
+        hash_insert(&total_set, arr[i]);
+        
+        
+        for (int j = 0; j < prev_size; j++) {
+            int next_or = prev_or[j] | arr[i];
+            
+            
+            int is_duplicate = 0;
+            for (int k = 0; k < curr_size; k++) {
+                if (curr_or[k] == next_or) {
+                    is_duplicate = 1;
+                    break;
+                }
+            }
+            
+            if (!is_duplicate) {
+                curr_or[curr_size++] = next_or;
+                hash_insert(&total_set, next_or);
+            }
+        }
+        
+        
+        prev_size = curr_size;
+        for (int j = 0; j < curr_size; j++) {
+            prev_or[j] = curr_or[j];
+        }
+    }
+    
+    int ans = total_set.count;
+    hash_free(&total_set);
+    return ans;
+}
