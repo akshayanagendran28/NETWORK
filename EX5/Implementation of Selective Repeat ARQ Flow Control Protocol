@@ -1,0 +1,27 @@
+ Which of the following is the efficiency of Selective Repeat ARQ with Ws=N?
+a: 2N/(1+2a) where a = Tₚ / Tₜ
+b: N/(1+2a) where a = Tₚ / Tₜ
+c: N/(1+2a) where a = Tₜ / Tₚ
+d: 2N/(1+2a) where a = Tₜ / Tₚ
+In selective repeat what is the number of retransmissions in case of packet drop Ws=N?
+a: N
+b: 1
+c: N-1
+d: N-1/2
+Selective Repeat uses a?
+a: Sliding frame
+b: Sliding packet
+c: Sliding window
+d: Sliding Session
+NAK frames are not numbered in:
+a: Go Back N ARQ
+b: Stop and Wait ARQ
+c: Selective Repeat ARQ
+d: All of the above
+Which of the following is not a flow control technique?
+a: Stop-and-Wait ARQ
+b: CRC
+c: Go-Back-N-ARQ
+d: Selective-Repeat-ARQ
+
+b, b, c, b, b
