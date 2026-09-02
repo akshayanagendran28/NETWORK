@@ -1,1 +1,26 @@
 
+ What is the primary goal of the Distance Vector Routing Algorithm?
+a: To find the shortest path between two nodes
+b: To determine the fastest network protocol
+c: To establish direct communication between all nodes
+d: To assign IP addresses dynamically
+Which type of information does each node maintain in Distance Vector Routing?
+a: Only its own IP address
+b: Cost estimates to all other nodes
+c: A list of all network devices
+d: The entire network topology
+How do nodes exchange routing information in Distance Vector Routing?
+a: By broadcasting their full network topology
+b: By exchanging distance vectors with neighbors
+c: By sending data packets to all nodes
+d: By maintaining a central routing table
+Which mathematical equation is used to update a node's distance vector?
+a: Dₓ(y) = max{c(x, v) - Dᵥ(y)}
+b: Dₓ(y) = min{c(x, v) + Dᵥ(y)}
+c: Dₓ(y) = sum{c(x, v) * Dᵥ(y)}
+d: Dₓ(y) = Dᵥ(y) / c(x, v)
+What happens when a node updates its distance vector?
+a: It resets its routing table
+b: It immediately sends the updated vector to its neighbors
+c: It waits until the next scheduled update
+d: It ignores the update unless explicitly requested 
