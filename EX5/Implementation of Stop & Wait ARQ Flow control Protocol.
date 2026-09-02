@@ -1,0 +1,27 @@
+ For Stop-and-Wait ARQ, for 10 data packets sent, _______ acknowledgments are needed.
+a: less than 10
+b: more than 10
+c: exactly 10
+d: none of the above
+What is the main disadvantage of stop-and-wait flow control?
+a: Unreliable
+b: Inefficient
+c: Attenuation
+d: Dropped Packets
+The frames in Stop-And-Wait ARQ are re-transmitted when :-
+a: It is not known
+b: ACK is received
+c: The Time Expires
+d: Never Re-transmitted
+The term that refers to the set of procedures used to restrict the amount of data that the sender can send before waiting for the acknowledgement is:
+a: Error control
+b: Byte Stuffing
+c: Delay Shift
+d: Flow Control
+A receiver using stop-and-wait ARQ sends ACK framed numbered __________.
+a: 0 and 1 only
+b: Sequentially, beginning with 0
+c: Sequentially, beginning with 1
+d: The frames are not numbered
+
+c, b, c, d, a
