@@ -1,0 +1,29 @@
+ In Go-Back-N ARQ, if frames 4, 5, and 6 are received successfully, the receiver may send an ACK ___ to the sender.
+a: 6
+b: 5
+c: 7
+d: any of the above
+In a Go-Back-N ARQ, if the window size is 63, what is the range of sequence numbers?
+a: 1 to 63
+b: 0 to 63
+c: 1 to 64
+d: 0 to 64
+Both Go-Back-N and Selective Repeat use a?
+a: Sliding frame
+b: Sliding packet
+c: Sliding window
+d: Sliding Session
+In GBN sender Window size = 10 and Tp = 49.5ms & Tt = 1ms. What is the Efficiency of the protocol?
+a: 0.1%
+b: 1%
+c: 10%
+d: None of the above
+A sender has a sliding window of size 15. The first 10 frames are sent. How many frames are in the window now?
+a: 5
+b: 10
+c: 15
+d: 0
+
+
+
+c, b, c, c, c
