@@ -23,3 +23,6 @@ a: A complete routing table containing next-hop nodes
 b: A set of shortest paths but no forwarding information
 c: A list of all network devices
 d: A distance vector for each node 
+
+
+b, b, b, c, a
