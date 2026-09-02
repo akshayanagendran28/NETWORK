@@ -1,0 +1,87 @@
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+        // If source and target are the same, no buses are needed
+        if (source == target) {
+            return 0;
+        }
+
+        // Map each stop to all the buses (route indices) that pass through it
+        unordered_map<int, vector<int>> stopToBuses;
+        for (int busId = 0; busId < routes.size(); ++busId) {
+            for (int stop : routes[busId]) {
+                stopToBuses[stop].push_back(busId);
+            }
+        }
+
+        // Queue stores the next stops to explore
+        queue<int> q;
+        // Keep track of visited stops and visited buses to prevent infinite loops
+        unordered_set<int> visitedStops;
+        vector<bool> visitedBuses(routes.size(), false);
+
+        // Initialize BFS with the source stop
+        q.push(source);
+        visitedStops.insert(source);
+
+        int busCount = 0;
+
+        // Standard BFS loop
+        while (!q.empty()) {
+            int levelSize = q.size();
+            busCount++; // Incremented as we are boarding a new set of buses
+
+            for (int i = 0; i < levelSize; ++i) {
+                int currentStop = q.front();
+                q.pop();
+
+                // Get all buses that pass through the current stop
+                for (int busId : stopToBuses[currentStop]) {
+                    // Skip if we have already boarded this bus before
+                    if (visitedBuses[busId]) {
+                        continue;
+                    }
+                    visitedBuses[busId] = true;
+
+                    // Explore all stops reachable by this bus
+                    for (int nextStop : routes[busId]) {
+                        // If we reach the target stop, return the total buses taken
+                        if (nextStop == target) {
+                            return busCount;
+                        }
+
+                        // If the stop hasn't been visited yet, add it to the queue
+                        if (visitedStops.find(nextStop) == visitedStops.end()) {
+                            visitedStops.insert(nextStop);
+                            q.push(nextStop);
+                        }
+                    }
+                }
+            }
+        }
+
+        // If BFS ends and target is not reached, it's impossible
+        return -1;
+    }
+};
+
+
+output:
+
+input
+routes =
+[[1,2,7],[3,6,7]]
+source =
+1
+target =
+6
+Output
+2
