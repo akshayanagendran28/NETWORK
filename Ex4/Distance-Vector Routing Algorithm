@@ -24,3 +24,6 @@ a: It resets its routing table
 b: It immediately sends the updated vector to its neighbors
 c: It waits until the next scheduled update
 d: It ignores the update unless explicitly requested 
+
+
+a, b, b, b, b
