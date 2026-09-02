@@ -1,0 +1,86 @@
+import heapq
+from collections import defaultdict
+
+class Solution(object):
+    def medianSlidingWindow(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[float]
+        """
+        small_max_heap = []
+        large_min_heap = []
+        lazy_deleted = defaultdict(int)
+        
+        # FIXED: Wrap sizes in a list to make them mutable inside nested functions without 'nonlocal'
+        sizes = [0, 0] # idx 0: small_size, idx 1: large_size
+        
+        def add_num(num):
+            if not small_max_heap or num <= -small_max_heap[0]:
+                heapq.heappush(small_max_heap, -num)
+                sizes[0] += 1
+            else:
+                heapq.heappush(large_min_heap, num)
+                sizes[1] += 1
+            rebalance()
+            
+        def remove_num(num):
+            lazy_deleted[num] += 1
+            if num <= -small_max_heap[0]:
+                sizes[0] -= 1
+            else:
+                sizes[1] -= 1
+            rebalance()
+            prune()
+            
+        def rebalance():
+            # sizes[0] is small_size, sizes[1] is large_size
+            if sizes[0] > sizes[1] + 1:
+                val = -heapq.heappop(small_max_heap)
+                heapq.heappush(large_min_heap, val)
+                sizes[0] -= 1
+                sizes[1] += 1
+                prune()
+            elif sizes[0] < sizes[1]:
+                val = heapq.heappop(large_min_heap)
+                heapq.heappush(small_max_heap, -val)
+                sizes[1] -= 1
+                sizes[0] += 1
+                prune()
+                
+        def prune():
+            while small_max_heap and lazy_deleted[-small_max_heap[0]] > 0:
+                lazy_deleted[-small_max_heap[0]] -= 1
+                heapq.heappop(small_max_heap)
+            while large_min_heap and lazy_deleted[large_min_heap[0]] > 0:
+                lazy_deleted[large_min_heap[0]] -= 1
+                heapq.heappop(large_min_heap)
+                
+        def get_median():
+            if k % 2 == 1:
+                return float(-small_max_heap[0])
+            else:
+                return (-small_max_heap[0] + large_min_heap[0]) / 2.0
+
+        # Step 1: Initialize the first window
+        for i in range(k):
+            add_num(nums[i])
+            
+        result = [get_median()]
+        
+        # Step 2: Slide the window across the remaining elements
+        for i in range(k, len(nums)):
+            add_num(nums[i])            
+            remove_num(nums[i - k])     
+            result.append(get_median()) 
+            
+        return result
+
+output
+Input
+nums =
+[1,3,-1,-3,5,3,6,7]
+k =
+3
+Output
+[1.00000,-1.00000,-1.00000,3.00000,5.00000,6.00000]
