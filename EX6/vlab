@@ -1,0 +1,17 @@
+ ___________ is employed to achieve reliable transport in TCP.
+a: Packet
+b: Buffer
+c: Segment
+d: Acknowledgment
+Consider a TCP connection sending a file of 34569 bytes. The first byte is numbered 57899. What is the segment's sequence number if all data is sent in only one segment?
+a: 57900
+b: 57899
+c: 57898
+d: 57991
+The size of the acknowledgement number in a TCP header is _____.
+a: 32 bits
+b: 16 bits
+c: 24 bits
+d: 1 byte 
+
+  1)d,2)b,3)a
